@@ -4,13 +4,18 @@ export default class Handler {
     if (data === null || data === undefined) {
       throw "Data parameter is not defined!";
     }
-    if (data["command"] !== undefined) {
-      return this[`on${data["command"]}`].apply(null, [data, null])
+
+    let command = data["command"]
+    if (command !== undefined) {
+      let fn = this[`on${command.charAt(0).toUpperCase()}${command.substr(1)}`]
+      if (typeof fn === 'function') {
+        return fn.apply(null, [data, null])
+      }
     }
     return false;
   }
 
-  oncreate(data, aggregator) {
+  onCreate(data, aggregator) {
     return true;
   }
 };

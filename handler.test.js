@@ -23,4 +23,9 @@ describe('random numbers', () => {
     expect(subject["handle"].apply(subject, [{command: "create"}, null])).toBeTruthy();
   })
 
+  it('false when command not exists', () => {
+    let subject = new Handler()
+    expect(subject["handle"].apply(subject, [{command: "nonExistent"}, null])).toBeFalsy();
+  })
+
 })
